@@ -13,12 +13,13 @@ router.get('/notes', (req, res) =>
 
 router.post('/notes', (req, res) =>
 {
-	var notes = fs.readFileSync('db/db.json', 'utf8');
+	var notes = JSON.parse( fs.readFileSync('db/db.json', 'utf8') );
 	const note = req.body;
 	console.log(note);
 	notes.push(note);
+	fs.writeFileSync('db/db.json', JSON.stringify(notes) );
 	console.log(notes);
-	res.send({ title: "hello", text: "bob" });
+	res.send( JSON.stringify(note) );
 });
 
 module.exports = router;
